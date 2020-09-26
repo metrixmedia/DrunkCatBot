@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://imgur.com/dxCHkXs" alt="ThetaBot" />
+    <img src="https://i.imgur.com/dxCHkXs.png" alt="ThetaBot" />
 </p>
 
 # ThetaBot
