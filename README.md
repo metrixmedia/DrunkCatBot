@@ -3,3 +3,8 @@
 </p>
 
 # ThetaBot
+
+A free music Discord Bot
+
+Invite Link :
+//waiting approuval//
