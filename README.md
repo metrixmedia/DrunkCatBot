@@ -4,7 +4,7 @@
 
 # ThetaBot
 
-A free music Discord Bot
+A free music Discord Bot coded in Python by a group of students (NSI-FRANCE)
 
 Invite Link :
 //waiting approuval//
