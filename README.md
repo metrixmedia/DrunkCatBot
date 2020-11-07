@@ -10,6 +10,9 @@ Invite Link :
 //waiting approuval//
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![UP Time](https://img.shields.io/uptimerobot/ratio/m786026037-d95752be403d6151efe0f9c7)](https://bit.ly/hugofnmbot)
+[![Status](https://img.shields.io/uptimerobot/status/m786026037-d95752be403d6151efe0f9c7)](https://bit.ly/hugofnmbot)
+[![Discord](https://img.shields.io/discord/370660141521043469?color=yellow)]
 
 ## FAQ
 
