@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://i.imgur.com/dxCHkXs.png" alt="ThetaBot" />
+    <img src="https://lh4.googleusercontent.com/4h4GE2sOzkJchG2zW-GFG3AA5TMLkS0TqGKPcAiIZgPmGAoXI9A0_vsamamjsb1V1kh7PsgAVPb1uk4kNqKYYRrzd0-OmnPwPHOaOwmsqli6NGanKA=w1280" alt="MetrixBot" />
 </p>
 
 # MetrixBot
