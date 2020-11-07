@@ -2,7 +2,7 @@
     <img src="https://i.imgur.com/dxCHkXs.png" alt="ThetaBot" />
 </p>
 
-# ThetaBot
+# MetrixBot
 
 A free music Discord Bot coded in Python by a group of students (NSI-FRANCE)
 
