@@ -1,0 +1,107 @@
+{
+   "short":{
+	  ":musical_note: Music:": 
+			"`equalizer`, `lyrics`, `now`, `pause`, `p`, `play`, `queue`, `remove`, `repeat`, `resume`, `seek`, `save`, `shuffle`, `skip`, `stop`, `volume`"
+   		, 
+		":stuck_out_tongue_winking_eye: Fun:": 
+			"`ai`, `advice`, `ascii`, `bored`, `filter`, `fortune`, `quote`, `textart`, `uselessweb`, `wallpaper`"
+		, 
+		":tools: Utility:": 
+			"`convert`, `encode`, `list`, `palette`, `pokedex`, `predict`, `qr`, `rhyme`, `trace`, `translate`, `server`, `shorten`, `user`, `weather`, `wordinfo`"
+		, 
+		"<a:amongpat:766718738522701855> Meme:": 
+			"`bill`, `dark`, `drake`, `fml`, `geek`, `joke`, `meme`, `pun`, `riddle`, `roast`, `tinder`, `trigger`, `xkcd`"
+		, 
+		":joystick: Game:": 
+			"`2048`, `8ball`, `hangman`, `minesweeper`, `poll`, `rps`, `tally`, `teams`, `toss`, `trivia`, `ttt`, `wumpus`"
+		, 
+		":gear: Misc:": 
+			"`clear`, `help`, `invite`, `ping`, `support`"
+   },
+   "full":{
+   		":musical_note: Commandes musicales:": [
+	   			"equalizer     - Utiliser l'EQ", 
+				"lyrics <song> - Obtenir les paroles de la chanson", 
+				"now|np        - Affiche la chanson en cours de lecture", 
+				"pause|resume  - Mettre en pause/reprendre la chanson en cours", 
+				"play|p <song> - Lire la chanson spécifiée", 
+				"queue|q       - Affiche la file d'attente actuelle", 
+				"remove <idx>  - Supprimer la chanson de la file d'attente", 
+				"repeat        - Activer/désactiver la répétition", 
+				"resume        - Reprend la chanson en pause", 
+				"seek          - Rechercher la piste actuelle", 
+				"save|star     - Enregistrer la chanson dans vos favoris", 
+				"shuffle       - Activer/désactiver la lecture aléatoire", 
+				"skip          - Passer la chanson actuelle", 
+				"stop|dis      - Stoppe la musique et déconnecte le bot", 
+				"volume <val>  - Modifie le volume [1-1000]"
+   		], 
+		":stuck_out_tongue_winking_eye: Commandes fun:": [
+				"ai            - Démarrer le chat AI", 
+				"advice        - Obtenez des conseils", 
+				"ascii <link>  - Obtenir l'art ASCII de l'utilisateur/img", 
+				"bored|suggest - Suggestion pour l'ennui", 
+				"filter        - Appliquer des filtres à l'image", 
+				"fortune|quote - Fortune Cookie!", 
+				"    <category>[factoid|fortune|people]", 
+				"textart       - Générer du texte", 
+				"uselessweb    - Obtenir un site Web inutile", 
+				"wallpaper     - Obtenir un fond d'écran"
+		], 
+		":tools: Commandes utiles:": [
+				"convert       - Convertisseur de devises", 
+				"    <val><from><to>", 
+				"encode <txt>  - Encoder et styliser le texte", 
+				"list          - Affiche la liste des", 
+				"                utilisateurs connectés au channel vocal", 
+				"palette <hex> - Obtenir la palette de couleurs", 
+				"pokedex       - Obtenez des informations sur les Pokémon", 
+				"predict <msg> - Analyser le message", 
+				"qr <data>     - Générer un code QR", 
+				"rhyme <word>  - Obtenir des mots qui riment", 
+				"trace <ip>    - Localiser l'adresse IP (fonctionnalité surveillée par l'admin + API CloudFlare)", 
+				"translate     - Traduit le texte", 
+				"    <id><txt>", 
+				"server <serv> - Obtenir des informations sur le serveur", 
+				"shorten|url   - Raccourcir une URL", 
+				"user @user    - Obtenir des informations sur l'utilisateur", 
+				"weather <loc> - Obtenir la météo de votre emplacement", 
+				"wordinfo      - Obtenir des informations sur un mot"
+		], 
+		"<a:amongpat:766718738522701855> Commandes memes (en anglais):": [
+				"bill          - Generate bill meme", 
+				"drake <a, b>  - Generate Drake meme", 
+				"fml           - Generate FML", 
+				"joke          - Get a random joke", 
+				"                [pun|dark|riddle|geek]", 
+				"meme|maymay   - Get MayMays", 
+				"roast @user   - Roasts the mentioned user", 
+				"tinder @u1@u2 - Get Tinder image", 
+				"trigger @user - Trigger an user", 
+				"xkcd|comic    - Get random xkcd comics"
+		], 
+		":joystick: Jeux:": [
+				"2048          - Play 2048 puzzle", 
+				"8ball         - Magic 8Ball!", 
+				"    <question>", 
+				"hangman       - Play Hangman", 
+				"minesweeper   - Play Minesweeper", 
+				"poll          - Create a quick poll", 
+				"    <question> <choices>", 
+				"quiz|trivia   - Start a quiz game", 
+				"rps           - Play Rock, Paper, Scissors", 
+				"tally         - Tally the created poll", 
+				"teams         - Makes random teams(def. 2)", 
+				"toss|flip     - Flips a Coin", 
+				"ttt           - Play Tic-Tac-Toe!", 
+				"wumpus        - Play Wumpus game"
+		], 
+		":gear: Misc  (admin):": [
+				"clear|cls     - Delete the messages", 
+				"help          - Display this message", 
+				"invite        - Invite me to your server", 
+				"ping|latency  - Pong!", 
+				"support       - Contacter le support"
+		]
+   }
+}
