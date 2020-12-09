@@ -10,8 +10,8 @@ Invite Link :
 https://discord.com/oauth2/authorize?client_id=744554897336172614&scope=bot&permissions=8
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-[![UP Time](https://img.shields.io/uptimerobot/ratio/m786026037-d95752be403d6151efe0f9c7)](https://bit.ly/hugofnmbot)
-[![Status](https://img.shields.io/uptimerobot/status/m786026037-d95752be403d6151efe0f9c7)](https://bit.ly/hugofnmbot)
+[![UP Time](https://img.shields.io/uptimerobot/ratio/m786123386-a1fd3c29dc032e468f6d4022)](https://bit.ly/hugofnmbot)
+[![Status](https://img.shields.io/uptimerobot/status/m786123386-a1fd3c29dc032e468f6d4022)](https://bit.ly/hugofnmbot)
 [![Discord](https://img.shields.io/discord/695213840819945482?color=yellow)](https://discord.com/)
 [![Deploy to Repl.it](https://img.shields.io/badge/Deploy%20to%20Repl.it-Deploy-blueviolet)](https://repl.it/@hugofnm/MetrixBot)
 
