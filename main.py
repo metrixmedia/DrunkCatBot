@@ -14,7 +14,7 @@ from utils import canvas
 keep_alive.keep_alive()
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or("&"),
-					description='MetrixBot. STATUS : https://bit.ly/hugofnmbot',
+					description='MetrixBot - https://status.metrix.cf pour connaître l\'état du bot',
 					case_insensitive=True,
 					intents=discord.Intents.all())
 
@@ -40,7 +40,7 @@ async def on_ready():
 		print(f'Error loading {module}: {e}')
 
 	print('Bot.....Activated')
-	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name="détester Xylo"))
+	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name="réviser les maths"))
 
 @bot.event
 async def on_message(message):
@@ -91,11 +91,11 @@ async def on_member_remove(member):
 @bot.command(name='help', aliases=['h'])
 async def help(ctx, arg: str=''):
 	"""Montre l'écran d'aide"""
-	embed = discord.Embed(title="MetrixBot. STATUS : https://bit.ly/hugofnmbot", colour=discord.Colour(0x7f20a0))
+	embed = discord.Embed(title="MetrixBot - https://status.metrix.cf pour connaître l\'état du bot", colour=discord.Colour(0x7f20a0))
 
 	avatar_url = str(bot.user.avatar_url)
 	embed.set_thumbnail(url=avatar_url)
-	embed.set_author(name="MetrixBot Help", url="https://discord.com/oauth2/authorize?client_id=735564887056580640&scope=bot&permissions=8", icon_url=avatar_url)
+	embed.set_author(name="MetrixBot Help", url="https://discord.com/oauth2/authorize?client_id=744554897336172614&scope=bot&permissions=8", icon_url=avatar_url)
 	embed.set_footer(text="MetrixBot par @hugofnm#0029")
 
 	if arg.strip().lower() == '-a':
