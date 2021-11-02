@@ -14,7 +14,7 @@ from utils import canvas
 keep_alive.keep_alive()
 
 bot = commands.Bot(command_prefix=commands.when_mentioned_or("&"),
-					description='MetrixBot - https://status.metrix.cf pour connaître l\'état du bot',
+					description='DrunkCat, bot créé par @hugofnm#8033. STATUS : https://status.hugofnm.fr',
 					case_insensitive=True,
 					intents=discord.Intents.all())
 
@@ -40,7 +40,7 @@ async def on_ready():
 		print(f'Error loading {module}: {e}')
 
 	print('Bot.....Activated')
-	await bot.change_presence(status=discord.Status.dnd, activity=discord.Game(name="réviser les maths"))
+	await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="faire du Caml <3"))
 
 @bot.event
 async def on_message(message):
@@ -59,44 +59,48 @@ async def on_message(message):
 async def on_guild_join(guild):
 	for channel in guild.text_channels:
 		if channel.permissions_for(guild.me).send_messages:
-			await channel.send('Bonjour à tous ! Me voici dans une nouvelle mise à jour avec des changements importants, je te conseille de regarder les modifications avec la commande &help !`')
+			await channel.send('Bonjour à tous ! Me voici dans une nouvelle mise à jour avec des changements importants, je te conseille de regarder les modifications avec la commande &help !')
 			break
 
-@bot.event
-async def on_member_join(member):
-	sys_channel = member.guild.system_channel
-	if sys_channel:
-		data = await canvas.member_banner('Bonjour', str(member), str(member.avatar_url_as(format='png', size=256)))
-		with io.BytesIO() as img:
-			data.save(img, 'PNG')
-			img.seek(0)
-			try:
-				await sys_channel.send(content=member.mention, file=discord.File(fp=img, filename='welcome.png'))
-			except discord.Forbidden:
-				pass
+#Bot event with hello and goodbye messages
 
-@bot.event
-async def on_member_remove(member):
-	sys_channel = member.guild.system_channel
-	if sys_channel:
-		data = await canvas.member_banner('Au revoir', str(member), str(member.avatar_url_as(format='png', size=256)))
-		with io.BytesIO() as img:
-			data.save(img, 'PNG')
-			img.seek(0)
-			try:
-				await sys_channel.send(file=discord.File(fp=img, filename='leave.png'))
-			except discord.Forbidden:
-				pass
+#@bot.event
+#async def on_member_join(member):
+#	sys_channel = member.guild.system_channel
+#	if sys_channel:
+#		data = await canvas.member_banner('Bonjour', str(member), str(member.avatar_url_as(format='png', size=256)))
+#		with io.BytesIO() as img:
+#			data.save(img, 'PNG')
+#			img.seek(0)
+#			try:
+#				await sys_channel.send(content=member.mention, file=discord.File(fp=img, filename='welcome.png'))
+#			except discord.Forbidden:
+#				pass
+
+#@bot.event
+#async def on_member_remove(member):
+#	sys_channel = member.guild.system_channel
+#	if sys_channel:
+#		data = await canvas.member_banner('Au revoir', str(member), str(member.avatar_url_as(format='png', size=256)))
+#		with io.BytesIO() as img:
+#			data.save(img, 'PNG')
+#			img.seek(0)
+#			try:
+#				await sys_channel.send(file=discord.File(fp=img, filename='leave.png'))
+#			except discord.Forbidden:
+#				pass
+
+#end
 
 @bot.command(name='help', aliases=['h'])
 async def help(ctx, arg: str=''):
 	"""Montre l'écran d'aide"""
-	embed = discord.Embed(title="MetrixBot - https://status.metrix.cf pour connaître l\'état du bot", colour=discord.Colour(0x7f20a0))
+	embed = discord.Embed(title="DrunkCat, bot créé par @hugofnm#8033. STATUS : https://status.hugofnm.fr", colour=discord.Colour(0x7f20a0))
 
 	avatar_url = str(bot.user.avatar_url)
 	embed.set_thumbnail(url=avatar_url)
-	embed.set_author(name="MetrixBot Help", url="https://discord.com/oauth2/authorize?client_id=744554897336172614&scope=bot&permissions=8", icon_url=avatar_url)
-	embed.set_footer(text="MetrixBot par @hugofnm#0029")
+	embed.set_author(name="DrunkCat Bot Help", url="https://discord.com/oauth2/authorize?client_id=735564887056580640&scope=bot&permissions=8", icon_url=avatar_url)
+	embed.set_footer(text="Drunk Bot par @hugofnm#8033")
 
 	if arg.strip().lower() == '-a':
 		# Full version
