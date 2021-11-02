@@ -1,13 +1,13 @@
 <p align="center">
-    <img src="https://i.imgur.com/JqlSEBO.png" width="200x200" alt="MetrixBot" />
+    <img src="https://ftp.hugofnm.fr/Photos/DrunkCat.png" width="200x200" alt="DrunkCatBot" />
 </p>
 
-# MetrixBot
+# DrunkCat
 
 A free music Discord Bot coded in Python by a group of students. Made in Nice, France. 
 
 Invite Link :
-https://discord.com/oauth2/authorize?client_id=744554897336172614&scope=bot&permissions=8
+https://discord.com/oauth2/authorize?client_id=735564887056580640&scope=bot&permissions=8
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![UP Time](https://img.shields.io/uptimerobot/ratio/m786123386-a1fd3c29dc032e468f6d4022)](https://status.metrix.cf)
