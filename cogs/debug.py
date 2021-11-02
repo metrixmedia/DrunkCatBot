@@ -163,7 +163,7 @@ class Debug(commands.Cog):
 		
 		modules = ['misc', 'games', 'debug', 'media', 'music']
 		if not arg:
-			return await ctx.send(embed=discord.Embed(title='Modules', description='\n'.join(modules)))
+			return await ctx.send(embed=discord.Embed(title='Vous devez préciser les modules :', description='\n'.join(modules)))
 		if arg.lower() == 'all':
 			for module in modules:
 				msg = await ctx.send(f":arrows_counterclockwise: Chargement en cours de `{module}`...")

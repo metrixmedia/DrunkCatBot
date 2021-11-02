@@ -1,7 +1,7 @@
 import os
 import time
 import random
-
+import requests
 import discord
 from discord.ext import commands
 import ksoftapi
@@ -58,29 +58,35 @@ class Misc(commands.Cog):
 		await message.edit(content=f":ping_pong: Pong!\nTook `{int(ping)}ms`\nLatency: `{int(self.bot.latency*1000)}ms`")
 
 	@commands.command(name='weather')
-	async def weather(self, ctx, *, location: str = ""):
-		"""Get weather"""
-		if location == "":
-			return await ctx.send('Please provide location :map:')
-
-		try:
-			async with ctx.typing():
-				w = await self.kclient.kumo.basic_weather(location, icon_pack='color')
-		except ksoftapi.NoResults:
-			await ctx.send('Unable to locate :mag_right:')
+	async def weather(self, ctx, *, city: str):
+		city_name = city
+		api_key = os.environ['WeatherAPI']
+		base_url = "http://api.openweathermap.org/data/2.5/weather?"
+		complete_url = base_url + "appid=" + api_key + "&q=" + city_name
+		response = requests.get(complete_url)
+		x = response.json()
+		channel = ctx.message.channel
+		if x["cod"] != "404":
+			async with channel.typing():
+				y = x["main"]
+				current_temperature = y["temp"]
+				current_temperature_celsiuis = str(round(current_temperature - 273.15))
+				current_pressure = y["pressure"]
+				current_humidity = y["humidity"]
+				z = x["weather"]
+				weather_description = z[0]["description"]
+				embed = discord.Embed(title=f"Météo à  {city_name}",
+          color=ctx.guild.me.top_role.color,
+          timestamp=ctx.message.created_at,)
+				embed.add_field(name="Météo", value=f"**{weather_description}**", inline=False)
+				embed.add_field(name="Température(C)", value=f"**{current_temperature_celsiuis}°C**", inline=False)
+				embed.add_field(name="Humidity(%)", value=f"**{current_humidity}%**", inline=False)
+				embed.add_field(name="Atmospheric Pressure(hPa)", value=f"**{current_pressure}hPa**", inline=False)
+				embed.set_thumbnail(url="https://i.ibb.co/CMrsxdX/weather.png")
+				embed.set_footer(text=f"Requested by {ctx.author.name}")
+			await channel.send(embed=embed)
 		else:
-			infos = [['Apparent Temperature', 'apparent_temperature', 1, ' °C'], ['Precipitation Intensity', 'precip_intensity', 1, ' mm/h'], ['Precipitation Probability', 'precip_probability', 100, ' %'], ['Dew Point', 'dew_point', 1, ' °C'], ['Humidity', 'humidity', 100, ' %'], ['Pressure', 'pressure', 1, ' mbar'], ['Wind Speed', 'wind_speed', 1, ' km/h'], ['Cloud Cover', 'cloud_cover', 100, ' %'], ['Visibility', 'visibility', 1, ' km'], ['UV Index', 'uv_index', 1, ''], ['Ozone', 'ozone', 1, '']]
-			gmap = f"[🗺](https://www.google.com/maps/search/?api=1&query='{w.location.address}')"
-			gmap = gmap.replace("'", "%22");gmap = gmap.replace(" ", "%20")
-
-			info = [f'{gmap} **{w.location.address}**\n']
-			for i in infos:
-				info.append(f'{i[0]}: `{getattr(w, i[1])*i[2]}{i[3]}`')
-
-			embed = discord.Embed(title=f"{w.summary} {w.temperature}°C", colour=discord.Colour(0xffff66), description='\n'.join(info))
-			embed.set_thumbnail(url=w.icon_url)
-			embed.set_author(name='Weather:', icon_url=w.icon_url)
-			await ctx.send(embed=embed)
+			await channel.send("City not found.")
 
 	@commands.command(name='convert', aliases=['currency'])
 	async def currency(self, ctx, value: str="", _from: str="", to: str=""):
