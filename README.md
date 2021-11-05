@@ -6,6 +6,9 @@
 
 A free music Discord Bot coded in Python by a group of students. Made in Nice, France. 
 
+Website :
+https://drunkcat.hugofnm.fr
+
 Invite Link :
 https://discord.com/oauth2/authorize?client_id=735564887056580640&scope=bot&permissions=8
 
