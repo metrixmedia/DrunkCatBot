@@ -26,7 +26,7 @@ class Debug(commands.Cog):
 				s.upload()
 				s = s.results.dict()
 				
-				await ctx.send(f"Ping: `{s['ping']}ms`\nDownload: `{round(s['download']/10**6, 3)} Mbits/s`\nUpload: `{round(s['upload']/10**6, 3)} Mbits/s`\nServeur ISP Internet: `{s['server']['sponsor']}, {s['server']['name']}, {s['server']['country']}`\nFournisseur VPS Discord: `{s['client']['isp']}({s['client']['ip']}) {s['client']['country']} {s['client']['isprating']}`")
+				await ctx.send(f"Ping: `{s['ping']}ms`\nDownload: `{round(s['download']/10**6, 3)} Mbits/s`\nUpload: `{round(s['upload']/10**6, 3)} Mbits/s`\nServeur ISP Internet: `{s['server']['sponsor']}, {s['server']['name']}, {s['server']['country']}`\nFournisseur VPS Discord: `{s['client']['isp']} {s['client']['country']} {s['client']['isprating']}`")
 			else:
 				await ctx.send("Seulement l'admin du bot peut utiliser les fonctions debug :man_technologist_tone1:")
 

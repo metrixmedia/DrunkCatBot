@@ -75,11 +75,12 @@ class Misc(commands.Cog):
 				current_humidity = y["humidity"]
 				z = x["weather"]
 				weather_description = z[0]["description"]
-				embed = discord.Embed(title=f"Météo à  {city_name}",
+				embed = discord.Embed(title=f"Weather in  {city_name}",
           color=ctx.guild.me.top_role.color,
           timestamp=ctx.message.created_at,)
-				embed.add_field(name="Météo", value=f"**{weather_description}**", inline=False)
-				embed.add_field(name="Température(C)", value=f"**{current_temperature_celsiuis}°C**", inline=False)
+				embed.add_field(name="Weather", value=f"**{weather_description}**", inline=False)
+				embed.add_field(name="Temperature(C)", value=f"**{current_temperature_celsiuis}°C**", inline=False)
+				embed.add_field(name="Temperature(F)", value=f"**{current_temperature}°F**", inline=False)
 				embed.add_field(name="Humidity(%)", value=f"**{current_humidity}%**", inline=False)
 				embed.add_field(name="Atmospheric Pressure(hPa)", value=f"**{current_pressure}hPa**", inline=False)
 				embed.set_thumbnail(url="https://i.ibb.co/CMrsxdX/weather.png")
@@ -252,7 +253,7 @@ class Misc(commands.Cog):
 	@commands.command(name='invite')
 	async def invite(self, ctx):
 		"""My invite link"""
-		await ctx.send("Pour inviter **AntiXylocraft Bot** dans votre serveur, utilisez le lien suivant :")
+		await ctx.send("Pour inviter **DrunkCat** dans votre serveur, utilisez le lien suivant : https://link.hugofnm.fr/drunkcat")
 
 	@commands.command(name='analyze', aliases=['predict'])
 	async def predict(self, ctx, *, text=None):
