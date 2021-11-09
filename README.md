@@ -30,5 +30,7 @@ https://discord.com/oauth2/authorize?client_id=735564887056580640&scope=bot&perm
 * Misc Commands (clear, help, invite, ping, support)
 * And Debug Commands if Admin of bot (require being owner of the bot)
 
-## This Code is made for Repl.it Use, there is no REQUIREMENTS.TXT 
-But you can use Poetry Package and Dependency Manager (https://python-poetry.org/)
+## Update v11.2021 : We no longer maintain Repl.it version (not very powerful to the bot needs), but it still can be compatible with few adjustments.
+
+## This Code is made to work with Poetry Package Manager, there is no REQUIREMENTS.TXT (but still can be generated thanks to Poetry's utilities)
+Poetry Package and Dependency Manager : (https://python-poetry.org/)
