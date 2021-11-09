@@ -1,3 +1,4 @@
+from asyncio.tasks import wait_for
 from discord import Embed, FFmpegPCMAudio
 from discord.ext import commands
 from discord.utils import get
@@ -55,15 +56,19 @@ class Music(commands.Cog, name='Music'):
 
     def play_next(self, ctx):
         voice = get(self.bot.voice_clients, guild=ctx.guild)
-        if len(self.song_queue[ctx.guild]) > 1:
-            del self.song_queue[ctx.guild][0]
-            run_coroutine_threadsafe(self.edit_message(ctx), self.bot.loop)
-            voice.play(FFmpegPCMAudio(self.song_queue[ctx.guild][0]['source'], **Music.FFMPEG_OPTIONS), after=lambda e: self.play_next(ctx))
-            voice.is_playing()
-        else:
-            time.sleep(120)
-            run_coroutine_threadsafe(voice.disconnect(), self.bot.loop)
-            run_coroutine_threadsafe(self.message[ctx.guild].delete(), self.bot.loop)
+        del self.song_queue[ctx.guild][0]
+        run_coroutine_threadsafe(self.edit_message(ctx), self.bot.loop)
+        voice.play(FFmpegPCMAudio(self.song_queue[ctx.guild][0]['source'], **Music.FFMPEG_OPTIONS), after=lambda e: self.play_next(ctx))
+        voice.is_playing()
+    
+    @commands.Cog.listener()
+    async def on_voice_state_update(self, member, before, after):
+      voice = get(self.bot.voice_clients)
+      voice_state = member.guild.voice_client
+      if voice_state is not None and len(voice_state.channel.members) == 1:
+        time.sleep(2)
+        await run_coroutine_threadsafe(voice.disconnect(), self.bot.loop)
+        run_coroutine_threadsafe(self.bot.loop)
 
     @commands.command(aliases=['p'], brief='Play [url/words]', description='Listen to a video from an url or from a YouTube search')
     async def play(self, ctx, *, video: str):
@@ -97,13 +102,24 @@ class Music(commands.Cog, name='Music'):
             else:
                 await ctx.send('⏯️ Music resumed')
                 voice.resume()
+    
+    @commands.command(aliases=['r'],brief='resume', description='Resumes the current video after a pause')
+    async def resume(self, ctx):
+        voice = get(self.bot.voice_clients, guild=ctx.guild)
+        if voice.is_connected():
+            await ctx.message.delete()
+            if not voice.is_playing():
+                await ctx.send('⏯️ Music resumed')
+                voice.resume()
+            else:
+                await ctx.send('Music is already playing')
 
     @commands.command(aliases=['s'],brief='skip', description='Skip the current video')
     async def skip(self, ctx):
         voice = get(self.bot.voice_clients, guild=ctx.guild)
         if voice.is_playing():
             await ctx.message.delete()
-            await ctx.send('⏭️ Musique skipped', delete_after=5.0)
+            await ctx.send('⏭️ Music skipped', delete_after=5.0)
             voice.stop()
 
     @commands.command(brief='remove [index]', description='Remove a song from the queue')
