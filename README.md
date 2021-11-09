@@ -18,7 +18,7 @@ https://discord.com/oauth2/authorize?client_id=735564887056580640&scope=bot&perm
 [![Discord](https://img.shields.io/badge/Add%20to%20Discord%20Server-Log%20In-yellow)](https://discord.com/oauth2/authorize?client_id=735564887056580640&scope=bot&permissions=8)
 [![Deploy to Repl.it](https://img.shields.io/badge/Deploy%20to%20Repl.it-Deploy-blueviolet)](https://repl.it/@hugofnm/DrunkCat)
 
-## FAQ
+## FAQ / QA :
 
 ### What can the Bot do ?
 
@@ -30,7 +30,11 @@ https://discord.com/oauth2/authorize?client_id=735564887056580640&scope=bot&perm
 * Misc Commands (clear, help, invite, ping, support)
 * And Debug Commands if Admin of bot (require being owner of the bot)
 
-## Update v11.2021 : We no longer maintain Repl.it version (not very powerful to the bot needs), but it still can be compatible with few adjustments.
+## Other informations :
 
-## This Code is made to work with Poetry Package Manager, there is no REQUIREMENTS.TXT (but still can be generated thanks to Poetry's utilities)
+### This Code is made to work with Poetry Package Manager, there is no REQUIREMENTS.TXT (but still can be generated thanks to Poetry's utilities)
 Poetry Package and Dependency Manager : (https://python-poetry.org/)
+
+### Invite link for DrunkCat Preview (instable beta, commands with § prefix) : https://discord.com/oauth2/authorize?client_id=907021421845315614&scope=bot&permissions=8
+
+### Update v11.2021 : We no longer maintain Repl.it version (not very powerful to the bot needs), but it still can be compatible with few adjustments.
