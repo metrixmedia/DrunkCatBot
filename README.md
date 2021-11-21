@@ -38,3 +38,5 @@ Poetry Package and Dependency Manager : (https://python-poetry.org/)
 ### Invite link for DrunkCat Preview (instable beta, commands with § prefix) : https://discord.com/oauth2/authorize?client_id=907021421845315614&scope=bot&permissions=8
 
 ### Update v11.2021 : We no longer maintain Repl.it version (not very powerful to the bot needs), but it still can be compatible with few adjustments.
+
+### Update v17.11.2021 : Music cog is not broken anymore, Lyrics in alpha.
