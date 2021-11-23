@@ -40,3 +40,5 @@ Poetry Package and Dependency Manager : (https://python-poetry.org/)
 ### Update v11.2021 : We no longer maintain Repl.it version (not very powerful to the bot needs), but it still can be compatible with few adjustments.
 
 ### Update v17.11.2021 : Music cog is not broken anymore, Lyrics in alpha.
+
+### Update v22.11.2021 : Added Stop Cog to the Music category (stops the music and disconnects the bot), optimisation of the code
