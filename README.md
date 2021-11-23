@@ -16,7 +16,7 @@ https://discord.com/oauth2/authorize?client_id=735564887056580640&scope=bot&perm
 [![UP Time](https://img.shields.io/uptimerobot/ratio/m786123386-a1fd3c29dc032e468f6d4022)](https://status.hugofnm.fr)
 [![Status](https://img.shields.io/uptimerobot/status/m786123386-a1fd3c29dc032e468f6d4022)](https://status.hugofnm.fr)
 [![Discord](https://img.shields.io/badge/Add%20to%20Discord%20Server-Log%20In-yellow)](https://discord.com/oauth2/authorize?client_id=735564887056580640&scope=bot&permissions=8)
-[![Deploy to Repl.it](https://img.shields.io/badge/Deploy%20to%20Repl.it-Deploy-blueviolet)](https://repl.it/@hugofnm/DrunkCat)
+[![Deploy to Repl.it](https://img.shields.io/badge/Deploy%20to%20Repl.it-Deploy%20(no%20bug%20support)-blueviolet)](https://repl.it/@hugofnm/DrunkCat)
 
 ## FAQ / QA :
 
