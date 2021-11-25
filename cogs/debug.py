@@ -28,7 +28,7 @@ class Debug(commands.Cog):
 				
 				await ctx.send(f"Ping: `{s['ping']}ms`\nDownload: `{round(s['download']/10**6, 3)} Mbits/s`\nUpload: `{round(s['upload']/10**6, 3)} Mbits/s`\nServeur ISP Internet: `{s['server']['sponsor']}, {s['server']['name']}, {s['server']['country']}`\nFournisseur VPS Discord: `{s['client']['isp']} {s['client']['country']} {s['client']['isprating']}`")
 			else:
-				await ctx.send("Seulement l'admin du bot peut utiliser les fonctions debug :man_technologist_tone1:")
+				await ctx.send("Only bot admin can use those debug functions :man_technologist_tone1:")
 
 	@commands.command(name='botinfo' , aliases=['botstats', 'status'])
 	async def stats(self, ctx):
@@ -68,7 +68,7 @@ class Debug(commands.Cog):
 		"""Evaluates python code"""
 		# Allow only the bot owner
 		if not await self.bot.is_owner(ctx.author):
-			return await ctx.send("Seulement l'admin du bot peut utiliser les fonctions debug :man_technologist_tone1:")
+			return await ctx.send("Only bot admin can use those debug functions :man_technologist_tone1:")
 
 		env = {
 			'ctx': ctx,
@@ -159,7 +159,7 @@ class Debug(commands.Cog):
 	async def reload_module(self, ctx, arg=None):
 		"""Reload module"""
 		if not await self.bot.is_owner(ctx.author):
-			return await ctx.send("Seulement l'admin du bot peut utiliser les fontions debug :man_technologist_tone1:")
+			return await ctx.send("Only bot admin can use those debug functions :man_technologist_tone1:")
 		
 		modules = ['misc', 'games', 'debug', 'media', 'music']
 		if not arg:

@@ -1,5 +1,5 @@
 from asyncio.tasks import wait_for
-from discord import Embed, FFmpegPCMAudio
+from discord import Embed, FFmpegPCMAudio, channel
 from discord.ext import commands
 from discord.utils import get
 from youtube_dl import YoutubeDL
@@ -67,7 +67,7 @@ class Music(commands.Cog, name='Music'):
       voice_state = member.guild.voice_client
       if voice_state is not None and len(voice_state.channel.members) == 1:
         time.sleep(2)
-        await run_coroutine_threadsafe(voice.disconnect(), self.bot.loop)
+        run_coroutine_threadsafe(voice.disconnect(), self.bot.loop)
         run_coroutine_threadsafe(self.bot.loop)
 
     @commands.command(aliases=['p'], brief='Play [url/words]', description='Listen to a video from an url or from a YouTube search')
@@ -91,6 +91,15 @@ class Music(commands.Cog, name='Music'):
             self.song_queue[ctx.guild].append(song)
             await self.edit_message(ctx)
 
+    @commands.command(brief='stop', description='Stops the music and disconnects the bot')
+    async def stop(self, ctx):
+        voice = get(self.bot.voice_clients, guild=ctx.guild)
+        channel = ctx.author.voice.channel
+        if voice.is_playing():
+            ctx.message.delete()
+            voice.pause()
+            run_coroutine_threadsafe(voice.disconnect(), self.bot.loop)
+            
     @commands.command(brief='pause', description='Pause the current video')
     async def pause(self, ctx):
         voice = get(self.bot.voice_clients, guild=ctx.guild)

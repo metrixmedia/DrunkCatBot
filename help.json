@@ -1,7 +1,7 @@
 {
    "short":{
 	  ":musical_note: Music:": 
-			"`equalizer`, `lyrics`, `now`, `pause`, `p`, `play`, `queue`, `remove`, `repeat`, `resume`, `seek`, `save`, `shuffle`, `skip`, `stop`, `volume`"
+			"`lyrics`, `pause`, `p` or `play`, `queue`, `remove`, `repeat`, `resume`, `skip`, `stop`"
    		, 
 		":stuck_out_tongue_winking_eye: Fun:": 
 			"`ai`, `advice`, `ascii`, `bored`, `filter`, `fortune`, `quote`, `textart`, `uselessweb`, `wallpaper`"
