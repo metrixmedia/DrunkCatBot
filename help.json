@@ -20,21 +20,12 @@
    },
    "full":{
    		":musical_note: Commandes musicales:": [
-	   			"equalizer     - Utiliser l'EQ", 
 				"lyrics <song> - Obtenir les paroles de la chanson", 
-				"now|np        - Affiche la chanson en cours de lecture", 
 				"pause|resume  - Mettre en pause/reprendre la chanson en cours", 
 				"play|p <song> - Lire la chanson spécifiée", 
-				"queue|q       - Affiche la file d'attente actuelle", 
 				"remove <idx>  - Supprimer la chanson de la file d'attente", 
-				"repeat        - Activer/désactiver la répétition", 
-				"resume        - Reprend la chanson en pause", 
-				"seek          - Rechercher la piste actuelle", 
-				"save|star     - Enregistrer la chanson dans vos favoris", 
-				"shuffle       - Activer/désactiver la lecture aléatoire", 
 				"skip          - Passer la chanson actuelle", 
-				"stop|dis      - Stoppe la musique et déconnecte le bot", 
-				"volume <val>  - Modifie le volume [1-1000]"
+				"stop|dis      - Stoppe la musique et déconnecte le bot"
    		], 
 		":stuck_out_tongue_winking_eye: Commandes fun:": [
 				"ai            - Démarrer le chat AI", 

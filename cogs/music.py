@@ -154,11 +154,11 @@ class Music(commands.Cog, name='Music'):
         lyrics = data['lyrics']
         embed = discord.Embed(color=discord.Color(0x5DADEC))
         embed.set_thumbnail(url=data['thumbnail']['genius'])
-        lyrics = lyrics[2048:]
+        lyrics = lyrics[1024:]
         embeds = [embed]
         while len(lyrics) > 0 and len(embeds) < 10:
-          embed = discord.Embed(color=discord.Color(0xCCFF00), description=lyrics[:2048])
-          lyrics = lyrics[len(embeds)*2048:]
+          embed = discord.Embed(color=discord.Color(0xCCFF00), description=lyrics[:1024])
+          lyrics = lyrics[len(embeds)*1024:]
           embeds.append(embed)
         embeds[-1].set_footer(text="Source: Genius")
         for embed in embeds:

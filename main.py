@@ -38,7 +38,7 @@ async def on_ready():
 		print(f'Error loading {module}: {e}')
 
 	print('Bot.....Activated')
-	await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="eating final bugs"))
+	await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="v10.12.2021"))
 
 @bot.event
 async def on_message(message):
@@ -95,7 +95,7 @@ async def help(ctx, arg: str=''):
 
 	if arg.strip().lower() == '-a':
 		# Full version
-		embed.description = 'Mon préfix d\'appel est `&`'
+		embed.description = 'Use `&` to talk to me !'
 		with open('help.json', 'r') as help_file:
 			data = json.load(help_file)
 		data = data['full']
@@ -104,7 +104,7 @@ async def help(ctx, arg: str=''):
 			embed.add_field(name=key, value=f"```{value}```", inline=False)
 	else:
 		# Short version
-		embed.description = 'Mon préfix d\'appel est `&`, tapez &help -a pour plus d\'informations sur les commandes'
+		embed.description = 'Use `&` to talk to me , and type &help -a for more informations about the commands'
 		with open('help.json', 'r') as help_file:
 			data = json.load(help_file)
 		data = data['short']
@@ -113,7 +113,7 @@ async def help(ctx, arg: str=''):
 	try:
 		await ctx.send(embed=embed)
 	except Exception:
-		await ctx.send("Je n'ai pas la permission d'envoyer des embed ici :\'('")
+		await ctx.send("I cannot send embeds here !\'('")
 
 
 # All good ready to start!

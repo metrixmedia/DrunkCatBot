@@ -3,6 +3,7 @@ import asyncio
 import io
 from textwrap import TextWrapper
 from googletrans import Translator, LANGUAGES
+import random
 
 import discord
 from discord.ext import commands
@@ -248,6 +249,7 @@ class Media(commands.Cog):
 		if len(text) != 2:
 			return await ctx.send('Please specify `,` separated two sentences :page_facing_up:')
 		url = 'https://api.alexflipnote.dev/drake'
+		headers = {'Authorization': os.environ['AlexFlipnoteAPI']}
 		params = {'top': text[0], 'bottom': text[1]}
 		async with self.client.get(url, params=params) as r:
 			if r.status != 200:
@@ -264,6 +266,7 @@ class Media(commands.Cog):
 		if hexcode.startswith('#'):
 			hexcode = hexcode[1:]
 		url = 'https://api.alexflipnote.dev/color/' + hexcode
+		headers = {'Authorization': os.environ['AlexFlipnoteAPI']}
 		async with ctx.typing():
 			async with self.client.get(url) as r:
 				if r.status != 200:
@@ -299,6 +302,7 @@ class Media(commands.Cog):
 			pass
 
 		url = f'https://api.alexflipnote.dev/filter/{arg}'
+		headers = {'Authorization': os.environ['AlexFlipnoteAPI']}
 		async with self.client.get(url, params={'image': str(image_link)}) as r:
 			if r.status != 200:
 				return await ctx.send("Failed :x:\nMaybe url is wrong :link:")
@@ -310,6 +314,7 @@ class Media(commands.Cog):
 	async def fml(self, ctx):
 		"""FML generators"""
 		url = 'https://api.alexflipnote.dev/fml'
+		headers = {'Authorization': os.environ['AlexFlipnoteAPI']}
 		async with ctx.typing():
 			async with self.client.get(url) as r:
 				if r.status != 200:
@@ -430,14 +435,11 @@ class Media(commands.Cog):
 	@commands.command(name='uselessweb', aliases=['website'])
 	async def uselessweb(self, ctx):
 		"""Get a random website"""
-		url = "https://useless-api--vierofernando.repl.co/uselesssites"
-		async with ctx.typing():
-			async with self.client.get(url) as r:
-				if r.status != 200:
-					return await ctx.send('Failed to get website :x:')
-				else:
-					data = await r.json()
-		await ctx.send(data['url'])
+		with open('uselessweb.txt', 'r') as f:
+			read = f.read()
+			array = read.split('\n')
+			quote = random.choice(array)
+		await ctx.channel.send(quote)
 
 	@commands.command(name='qr')
 	async def qrcode(self, ctx, *, data=None):

@@ -70,7 +70,8 @@ class Misc(commands.Cog):
 			async with channel.typing():
 				y = x["main"]
 				current_temperature = y["temp"]
-				current_temperature_celsiuis = str(round(current_temperature - 273.15))
+				current_temperature_celsius = str(round(current_temperature - 273.15))
+				current_temperature_fahrenheit = str(round(current_temperature_celsius * 9/5 + 32))
 				current_pressure = y["pressure"]
 				current_humidity = y["humidity"]
 				z = x["weather"]
@@ -79,8 +80,8 @@ class Misc(commands.Cog):
           color=ctx.guild.me.top_role.color,
           timestamp=ctx.message.created_at,)
 				embed.add_field(name="Weather", value=f"**{weather_description}**", inline=False)
-				embed.add_field(name="Temperature(C)", value=f"**{current_temperature_celsiuis}°C**", inline=False)
-				embed.add_field(name="Temperature(F)", value=f"**{current_temperature}°F**", inline=False)
+				embed.add_field(name="Temperature(C)", value=f"**{current_temperature_celsius}°C**", inline=False)
+				embed.add_field(name="Temperature(F)", value=f"**{current_temperature_fahrenheit}°F**", inline=False)
 				embed.add_field(name="Humidity(%)", value=f"**{current_humidity}%**", inline=False)
 				embed.add_field(name="Atmospheric Pressure(hPa)", value=f"**{current_pressure}hPa**", inline=False)
 				embed.set_thumbnail(url="https://i.ibb.co/CMrsxdX/weather.png")
