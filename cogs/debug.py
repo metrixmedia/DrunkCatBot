@@ -10,6 +10,7 @@ from psutil import virtual_memory, cpu_percent, cpu_freq
 import aiohttp
 import discord
 from discord.ext import commands
+client = discord.Client
 
 class Debug(commands.Cog):
 	def __init__(self, bot):
@@ -175,6 +176,13 @@ class Debug(commands.Cog):
 			self.bot.unload_extension('cogs.' + arg.lower())
 			self.bot.load_extension('cogs.' + arg.lower())
 			await msg.edit(content=f":white_check_mark: Chargé `{arg.lower()}`")
+	
+	@commands.command(name='serversin')
+	async def servers(self, ctx):
+		activeservers = client.guilds
+		for guild in activeservers:
+			await ctx.send(guild.name)
+			print(guild.name)
 
 
 def setup(bot):
