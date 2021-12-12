@@ -29,7 +29,7 @@ async def on_ready():
 	bot.client = ClientSession()
 
 	# Load Modules
-	modules = ['debug', 'games', 'media', 'misc', 'music']
+	modules = ['debug', 'games', 'media', 'misc', 'music', 'alexfun', 'moderator']
 	try:
 		for module in modules:
 			bot.load_extension('cogs.' + module)
@@ -37,7 +37,7 @@ async def on_ready():
 	except Exception as e:
 		print(f'Error loading {module}: {e}')
 
-	print('Bot.....Activated')
+	print('The bot is now ACTIVE')
 	await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="v10.12.2021"))
 
 @bot.event
@@ -91,7 +91,7 @@ async def help(ctx, arg: str=''):
 	avatar_url = str(bot.user.avatar_url)
 	embed.set_thumbnail(url=avatar_url)
 	embed.set_author(name="DrunkCat Bot Help", url="https://discord.com/oauth2/authorize?client_id=735564887056580640&scope=bot&permissions=8", icon_url=avatar_url)
-	embed.set_footer(text="Drunk Bot par @hugofnm#8066")
+	embed.set_footer(text="Drunk Bot by @hugofnm#8066")
 
 	if arg.strip().lower() == '-a':
 		# Full version
