@@ -71,7 +71,7 @@ class Misc(commands.Cog):
 				y = x["main"]
 				current_temperature = y["temp"]
 				current_temperature_celsius = str(round(current_temperature - 273.15))
-				current_temperature_fahrenheit = str(round(current_temperature_celsius * 9/5 + 32))
+				current_temperature_fahrenheit = str(round((current_temperature - 273.15) * (9/5) + 32))
 				current_pressure = y["pressure"]
 				current_humidity = y["humidity"]
 				z = x["weather"]
