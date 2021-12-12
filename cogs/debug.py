@@ -11,7 +11,7 @@ import aiohttp
 import discord
 from discord.ext import commands
 from io import BytesIO
-from utils import default
+from utils import default, permissions
 client = discord.Client
 
 class Debug(commands.Cog):
@@ -141,20 +141,6 @@ class Debug(commands.Cog):
 				message += f"{all_status[g]['emoji']} {', '.join(all_status[g]['users'])}\n"
 
 		await ctx.send(f"Mods in **{ctx.guild.name}**\n{message}")
-
-	@server.command(name="avatar", aliases=["icon"])
-	async def server_avatar(self, ctx):
-		""" Get the current server icon """
-		if not ctx.guild.icon:
-			return await ctx.send("This server does not have a avatar...")
-		await ctx.send(f"Avatar of **{ctx.guild.name}**\n{ctx.guild.icon}")
-
-	@server.command(name="banner")
-	async def server_banner(self, ctx):
-		""" Get the current banner image """
-		if not ctx.guild.banner:
-			return await ctx.send("This server does not have a banner...")
-		await ctx.send(f"Banner of **{ctx.guild.name}**\n{ctx.guild.banner.with_format('png')}")
 
 	@commands.command()
 	async def amiadmin(self, ctx):

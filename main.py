@@ -9,12 +9,21 @@ import discord
 from discord.ext import commands
 from os import environ, listdir
 
-keep_alive.keep_alive()
+from utils import default
+from utils.data import Bot, HelpFormat
 
-bot = commands.Bot(command_prefix=commands.when_mentioned_or("&"),
-					description='DrunkCat, a Discord bot created by @hugofnm#8066 with ❤️ in Nice, France. Status : status.hugofnm.fr',
-					case_insensitive=True,
-					intents=discord.Intents.all())
+keep_alive.keep_alive()
+config = default.config()
+
+bot = Bot(
+    command_prefix=config["prefix"], prefix=config["prefix"],
+    owner_ids=config["owners"], command_attrs=dict(hidden=True), help_command=HelpFormat(),
+    allowed_mentions=discord.AllowedMentions(roles=False, users=True, everyone=False),
+    intents=discord.Intents(  # kwargs found at https://discordpy.readthedocs.io/en/latest/api.html?highlight=intents#discord.Intents
+        guilds=True, members=True, messages=True, reactions=True, presences=True
+    ),
+	description='DrunkCat, a Discord bot created by @hugofnm#8066 with ❤️ in Nice, France. Status : status.hugofnm.fr'
+)
 
 bot.remove_command('help')
 
@@ -29,7 +38,7 @@ async def on_ready():
 	bot.client = ClientSession()
 
 	# Load Modules
-	modules = ['debug', 'games', 'media', 'misc', 'music', 'alexfun', 'moderator']
+	modules = ['music', 'alexfun', 'moderator', 'debug', 'games', 'media', 'misc']
 	try:
 		for module in modules:
 			bot.load_extension('cogs.' + module)
@@ -38,7 +47,6 @@ async def on_ready():
 		print(f'Error loading {module}: {e}')
 
 	print('The bot is now ACTIVE')
-	await bot.change_presence(status=discord.Status.online, activity=discord.Game(name="v10.12.2021"))
 
 @bot.event
 async def on_message(message):
@@ -47,41 +55,11 @@ async def on_message(message):
 		if hasattr(bot, 'messages_out'):
 			bot.messages_out += 1
 	# Received message (Count only commands messages)
-	elif message.content.startswith('~'):
+	elif message.content.startswith('&'):
 		if hasattr(bot, 'messages_in'):
 			bot.messages_in += 1
 
 	await bot.process_commands(message)
-
-#Bot event with hello and goodbye messages
-
-#@bot.event
-#async def on_member_join(member):
-#	sys_channel = member.guild.system_channel
-#	if sys_channel:
-#		data = await canvas.member_banner('Bonjour', str(member), str(member.avatar_url_as(format='png', size=256)))
-#		with io.BytesIO() as img:
-#			data.save(img, 'PNG')
-#			img.seek(0)
-#			try:
-#				await sys_channel.send(content=member.mention, file=discord.File(fp=img, filename='welcome.png'))
-#			except discord.Forbidden:
-#				pass
-
-#@bot.event
-#async def on_member_remove(member):
-#	sys_channel = member.guild.system_channel
-#	if sys_channel:
-#		data = await canvas.member_banner('Au revoir', str(member), str(member.avatar_url_as(format='png', size=256)))
-#		with io.BytesIO() as img:
-#			data.save(img, 'PNG')
-#			img.seek(0)
-#			try:
-#				await sys_channel.send(file=discord.File(fp=img, filename='leave.png'))
-#			except discord.Forbidden:
-#				pass
-
-#end
 
 @bot.command(name='help', aliases=['h'])
 async def help(ctx, arg: str=''):

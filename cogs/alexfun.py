@@ -1,26 +1,25 @@
 import random
 import discord
-import urllib
 import secrets
 import asyncio
 import aiohttp
-import re
-import os
 
 from io import BytesIO
 from discord.ext import commands
-from utils import lists, permissions, http, default, argparser
+from utils import permissions, http, default
 
 
 class alexfun(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.config = default.config()
-        self.alex_api_token = self.config["AlexFlipnoteAPI"]
 
     async def randomimageapi(self, ctx, url: str, endpoint: str, token: str = None):
         try:
-            r = await http.get(url, res_method="json", no_cache=True, headers={"Authorization": token})
+            r = await http.get(
+                url, res_method="json", no_cache=True,
+                headers={"Authorization": token} if token else None
+            )
         except aiohttp.ClientConnectorError:
             return await ctx.send("The API seems to be down...")
         except aiohttp.ContentTypeError:
@@ -28,9 +27,9 @@ class alexfun(commands.Cog):
 
         await ctx.send(r[endpoint])
 
-    async def api_img_creator(self, ctx, url: str, filename: str, content: str = None, token: str = None):
+    async def api_img_creator(self, ctx, url: str, filename: str, content: str = None):
         async with ctx.channel.typing():
-            req = await http.get(url, res_method="read", headers={"Authorization": token})
+            req = await http.get(url, res_method="read")
 
             if not req:
                 return await ctx.send("I couldn't create the image ;-;")
@@ -41,114 +40,22 @@ class alexfun(commands.Cog):
 
     @commands.command()
     @commands.cooldown(rate=1, per=1.5, type=commands.BucketType.user)
-    async def cat(self, ctx):
-        """ Posts a random cat """
-        await self.randomimageapi(ctx, 'https://api.alexflipnote.dev/cats', 'file', token=self.alex_api_token)
-
-    @commands.command()
-    @commands.cooldown(rate=1, per=1.5, type=commands.BucketType.user)
-    async def dog(self, ctx):
-        """ Posts a random dog """
-        await self.randomimageapi(ctx, 'https://api.alexflipnote.dev/dogs', 'file', token=self.alex_api_token)
-
-    @commands.command(aliases=["bird"])
-    @commands.cooldown(rate=1, per=1.5, type=commands.BucketType.user)
-    async def birb(self, ctx):
-        """ Posts a random birb """
-        await self.randomimageapi(ctx, 'https://api.alexflipnote.dev/birb', 'file', token=self.alex_api_token)
-
-    @commands.command()
-    @commands.cooldown(rate=1, per=1.5, type=commands.BucketType.user)
     async def duck(self, ctx):
         """ Posts a random duck """
-        await self.randomimageapi(ctx, 'https://random-d.uk/api/v1/random', 'url')
+        await self.randomimageapi(ctx, "https://random-d.uk/api/v1/random", "url")
 
     @commands.command()
     @commands.cooldown(rate=1, per=1.5, type=commands.BucketType.user)
     async def coffee(self, ctx):
         """ Posts a random coffee """
-        await self.randomimageapi(ctx, 'https://coffee.alexflipnote.dev/random.json', 'file')
-
-    @commands.command(aliases=['flip', 'coin'])
-    async def coinflip(self, ctx):
-        """ Coinflip! """
-        coinsides = ['Heads', 'Tails']
-        await ctx.send(f"**{ctx.author.name}** flipped a coin and got **{random.choice(coinsides)}**!")
+        await self.randomimageapi(ctx, "https://coffee.alexflipnote.dev/random.json", "file")
 
     @commands.command()
     async def f(self, ctx, *, text: commands.clean_content = None):
         """ Press F to pay respect """
-        hearts = ['❤', '💛', '💚', '💙', '💜']
+        hearts = ["❤", "💛", "💚", "💙", "💜"]
         reason = f"for **{text}** " if text else ""
         await ctx.send(f"**{ctx.author.name}** has paid their respect {reason}{random.choice(hearts)}")
-
-    @commands.command()
-    async def supreme(self, ctx, *, text: commands.clean_content(fix_channel_mentions=True)):
-        """ Make a fake Supreme logo
-        Arguments:
-            --dark | Make the background to dark colour
-            --light | Make background to light and text to dark colour
-        """
-        parser = argparser.Arguments()
-        parser.add_argument('input', nargs="+", default=None)
-        parser.add_argument('-d', '--dark', action='store_true')
-        parser.add_argument('-l', '--light', action='store_true')
-
-        args, valid_check = parser.parse_args(text)
-        if not valid_check:
-            return await ctx.send(args)
-
-        inputText = urllib.parse.quote(' '.join(args.input))
-        if len(inputText) > 500:
-            return await ctx.send(f"**{ctx.author.name}**, the Supreme API is limited to 500 characters, sorry.")
-
-        darkorlight = ""
-        if args.dark:
-            darkorlight = "dark=true"
-        if args.light:
-            darkorlight = "light=true"
-        if args.dark and args.light:
-            return await ctx.send(f"**{ctx.author.name}**, you can't define both --dark and --light, sorry..")
-
-        await self.api_img_creator(ctx, f"https://api.alexflipnote.dev/supreme?text={inputText}&{darkorlight}", "supreme.png", token=self.alex_api_token)
-
-    @commands.command(aliases=['color'])
-    @commands.cooldown(rate=1, per=3.0, type=commands.BucketType.user)
-    async def colour(self, ctx, colour: str):
-        """ View the colour HEX details """
-        async with ctx.channel.typing():
-            if not permissions.can_handle(ctx, "embed_links"):
-                return await ctx.send("I can't embed in this channel ;-;")
-
-            if colour == "random":
-                colour = "%06x" % random.randint(0, 0xFFFFFF)
-
-            if colour[:1] == "#":
-                colour = colour[1:]
-
-            if not re.search(r'^(?:[0-9a-fA-F]{3}){1,2}$', colour):
-                return await ctx.send("You're only allowed to enter HEX (0-9 & A-F)")
-
-            try:
-                r = await http.get(
-                    f"https://api.alexflipnote.dev/colour/{colour}", res_method="json",
-                    no_cache=True, headers={"Authorization": self.alex_api_token}
-                )
-            except aiohttp.ClientConnectorError:
-                return await ctx.send("The API seems to be down...")
-            except aiohttp.ContentTypeError:
-                return await ctx.send("The API returned an error or didn't return JSON...")
-
-            embed = discord.Embed(colour=r["int"])
-            embed.set_thumbnail(url=r["image"])
-            embed.set_image(url=r["image_gradient"])
-
-            embed.add_field(name="HEX", value=r['hex'], inline=True)
-            embed.add_field(name="RGB", value=r['rgb'], inline=True)
-            embed.add_field(name="Int", value=r['int'], inline=True)
-            embed.add_field(name="Brightness", value=r['brightness'], inline=True)
-
-            await ctx.send(embed=embed, content=f"{ctx.invoked_with.title()} name: **{r['name']}**")
 
     @commands.command()
     @commands.cooldown(rate=1, per=2.0, type=commands.BucketType.user)
@@ -156,23 +63,23 @@ class alexfun(commands.Cog):
         """ Find the 'best' definition to your words """
         async with ctx.channel.typing():
             try:
-                url = await http.get(f'https://api.urbandictionary.com/v0/define?term={search}', res_method="json")
+                url = await http.get(f"https://api.urbandictionary.com/v0/define?term={search}", res_method="json")
             except Exception:
                 return await ctx.send("Urban API returned invalid data... might be down atm.")
 
             if not url:
                 return await ctx.send("I think the API broke...")
 
-            if not len(url['list']):
+            if not len(url["list"]):
                 return await ctx.send("Couldn't find your search in the dictionary...")
 
-            result = sorted(url['list'], reverse=True, key=lambda g: int(g["thumbs_up"]))[0]
+            result = sorted(url["list"], reverse=True, key=lambda g: int(g["thumbs_up"]))[0]
 
-            definition = result['definition']
+            definition = result["definition"]
             if len(definition) >= 1000:
                 definition = definition[:1000]
-                definition = definition.rsplit(' ', 1)[0]
-                definition += '...'
+                definition = definition.rsplit(" ", 1)[0]
+                definition += "..."
 
             await ctx.send(f"📚 Definitions for **{result['word']}**```fix\n{definition}```")
 
@@ -192,7 +99,7 @@ class alexfun(commands.Cog):
         """
         if nbytes not in range(3, 1401):
             return await ctx.send("I only accept any numbers between 3-1400")
-        if hasattr(ctx, 'guild') and ctx.guild is not None:
+        if hasattr(ctx, "guild") and ctx.guild is not None:
             await ctx.send(f"Sending you a private message with your random generated password **{ctx.author.name}**")
         await ctx.author.send(f"🎁 **Here is your password:**\n{secrets.token_urlsafe(nbytes)}")
 
@@ -223,7 +130,7 @@ class alexfun(commands.Cog):
 
         try:
             await msg.add_reaction("🍻")
-            await self.bot.wait_for('raw_reaction_add', timeout=30.0, check=reaction_check)
+            await self.bot.wait_for("raw_reaction_add", timeout=30.0, check=reaction_check)
             await msg.edit(content=f"**{user.name}** and **{ctx.author.name}** are enjoying a lovely beer together 🍻")
         except asyncio.TimeoutError:
             await msg.delete()
@@ -234,7 +141,7 @@ class alexfun(commands.Cog):
             beer_offer = beer_offer + f"\n\n**Reason:** {reason}" if reason else beer_offer
             await msg.edit(content=beer_offer)
 
-    @commands.command(aliases=['howhot', 'hot'])
+    @commands.command(aliases=["howhot", "hot"])
     async def hotcalc(self, ctx, *, user: discord.Member = None):
         """ Returns a random percent for how hot is a discord user """
         user = user or ctx.author
@@ -243,17 +150,18 @@ class alexfun(commands.Cog):
         r = random.randint(1, 100)
         hot = r / 1.17
 
-        emoji = "💔"
-        if hot > 25:
-            emoji = "❤"
-        if hot > 50:
-            emoji = "💖"
         if hot > 75:
             emoji = "💞"
+        elif hot > 50:
+            emoji = "💖"
+        elif hot > 25:
+            emoji = "❤"
+        else:
+            emoji = "💔"
 
         await ctx.send(f"**{user.name}** is **{hot:.2f}%** hot {emoji}")
 
-    @commands.command(aliases=['noticemesenpai'])
+    @commands.command(aliases=["noticemesenpai"])
     async def noticeme(self, ctx):
         """ Notice me senpai! owo """
         if not permissions.can_handle(ctx, "attach_files"):
@@ -262,7 +170,7 @@ class alexfun(commands.Cog):
         bio = BytesIO(await http.get("https://i.alexflipnote.dev/500ce4.gif", res_method="read"))
         await ctx.send(file=discord.File(bio, filename="noticeme.gif"))
 
-    @commands.command(aliases=['slots', 'bet'])
+    @commands.command(aliases=["slots", "bet"])
     @commands.cooldown(rate=1, per=3.0, type=commands.BucketType.user)
     async def slot(self, ctx):
         """ Roll the slot machine """
@@ -280,32 +188,34 @@ class alexfun(commands.Cog):
         else:
             await ctx.send(f"{slotmachine} No match, you lost 😢")
 
-    @commands.command(name='filter', aliases=['blur', 'invert', 'b&w', 'deepfry', 'sepia', 'pixelate', 'magik', 'jpegify', 'wide', 'snow', 'gay', 'communist'])
-    async def filter(self, ctx, arg='', image_link=''):
-        """Deepfry avatar"""
-        filters = ['blur', 'invert', 'b&w', 'deepfry', 'sepia', 'pixelate', 'magik', 'jpegify', 'wide', 'snow', 'gay', 'communist']
-        if arg == '--list':
-            return await ctx.send(embed=discord.Embed(title='Filters', description='\n'.join(filters)))
-            if arg not in filters:
-                return await ctx.send("Invalid filter name\nUse --list for all options")
-		
-        if not image_link:
-            user = ctx.message.author
-            image_link = user.avatar_url_as(format='png', size=1024)
-        try:
-            user = ctx.message.mentions[0]
-            image_link = user.avatar_url_as(format='png', size=1024)
-        except IndexError:
-            pass
+# Ded API
 
-        url = f'https://api.alexflipnote.dev/filter/{arg}'
-        headers = {'Authorization': os.environ['AlexFlipnoteAPI']}
-        async with self.client.get(url, params={'image': str(image_link)}) as r:
-            if r.status != 200:
-                return await ctx.send("Failed :x:\nMaybe url is wrong :link:")
-            data = io.BytesIO(await r.read())
-
-        await ctx.send(file=discord.File(data, 'filter.png'))
+#    @commands.command(name='filter', aliases=['blur', 'invert', 'b&w', 'deepfry', 'sepia', 'pixelate', 'magik', 'jpegify', 'wide', 'snow', 'gay', 'communist'])
+#    async def filter(self, ctx, arg='', image_link=''):
+#        """Deepfry avatar"""
+#        filters = ['blur', 'invert', 'b&w', 'deepfry', 'sepia', 'pixelate', 'magik', 'jpegify', 'wide', 'snow', 'gay', 'communist']
+#        if arg == '--list':
+#            return await ctx.send(embed=discord.Embed(title='Filters', description='\n'.join(filters)))
+#            if arg not in filters:
+#                return await ctx.send("Invalid filter name\nUse --list for all options")
+#		
+#        if not image_link:
+#            user = ctx.message.author
+#            image_link = user.avatar_url_as(format='png', size=1024)
+#        try:
+#            user = ctx.message.mentions[0]
+#            image_link = user.avatar_url_as(format='png', size=1024)
+#        except IndexError:
+#            pass
+#
+#        url = f'https://api.alexflipnote.dev/filter/{arg}'
+#        headers = {'Authorization': os.environ['AlexFlipnoteAPI']}
+#        async with self.client.get(url, params={'image': str(image_link)}) as r:
+#            if r.status != 200:
+#                return await ctx.send("Failed :x:\nMaybe url is wrong :link:")
+#            data = BytesIO(await r.read())
+#
+#        await ctx.send(file=discord.File(data, 'filter.png'))
 
 def setup(bot):
     bot.add_cog(alexfun(bot))
