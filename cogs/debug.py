@@ -10,11 +10,14 @@ from psutil import virtual_memory, cpu_percent, cpu_freq
 import aiohttp
 import discord
 from discord.ext import commands
+from io import BytesIO
+from utils import default
 client = discord.Client
 
 class Debug(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
+		self.config = default.config()
 
 	@commands.command(name='speedtest')
 	async def speed_test(self, ctx):		
@@ -64,98 +67,6 @@ class Debug(commands.Cog):
 		except Exception:
 			await ctx.send("I don't have permission to send embeds here :disappointed_relieved:")
 
-	@commands.command(name='eval', aliases=['py'])
-	async def _eval(self, ctx, *, body):
-		"""Evaluates python code"""
-		# Allow only the bot owner
-		if not await self.bot.is_owner(ctx.author):
-			return await ctx.send("Only bot admin can use those debug functions :man_technologist_tone1:")
-
-		env = {
-			'ctx': ctx,
-			'bot': self.bot,
-			'channel': ctx.channel,
-			'author': ctx.author,
-			'guild': ctx.guild,
-			'message': ctx.message,
-			'source': inspect.getsource
-		}
-
-		def cleanup_code(content):
-			"""Automatically removes code blocks from the code."""
-			# remove ```py\n```
-			if content.startswith('```') and content.endswith('```'):
-				return '\n'.join(content.split('\n')[1:-1])
-
-			# remove `foo`
-			return content.strip('` \n')
-
-		env.update(globals())
-
-		body = cleanup_code(body)
-		stdout = io.StringIO()
-		err = out = None
-
-		to_compile = f'async def func():\n{textwrap.indent(body, "  ")}'
-
-		def paginate(text: str):
-			'''Simple generator that paginates text.'''
-			last = 0
-			pages = []
-			for curr in range(0, len(text)):
-				if curr % 1980 == 0:
-					pages.append(text[last:curr])
-					last = curr
-					appd_index = curr
-			if appd_index != len(text)-1:
-				pages.append(text[last:curr])
-			return list(filter(lambda a: a != '', pages))
-		
-		try:
-			exec(to_compile, env)
-		except Exception as e:
-			err = await ctx.send(f'```py\n{e.__class__.__name__}: {e}\n```')
-			return await ctx.message.add_reaction('\u2049')
-
-		func = env['func']
-		try:
-			with redirect_stdout(stdout):
-				ret = await func()
-		except Exception as e:
-			value = stdout.getvalue()
-			err = await ctx.send(f'```py\n{value}{traceback.format_exc()}\n```')
-		else:
-			value = stdout.getvalue()
-			if ret is None:
-				if value:
-					try:
-						
-						out = await ctx.send(f'```py\n{value}\n```')
-					except:
-						paginated_text = paginate(value)
-						for page in paginated_text:
-							if page == paginated_text[-1]:
-								out = await ctx.send(f'```py\n{page}\n```')
-								break
-							await ctx.send(f'```py\n{page}\n```')
-			else:
-				try:
-					out = await ctx.send(f'```py\n{value}{ret}\n```')
-				except:
-					paginated_text = paginate(f"{value}{ret}")
-					for page in paginated_text:
-						if page == paginated_text[-1]:
-							out = await ctx.send(f'```py\n{page}\n```')
-							break
-						await ctx.send(f'```py\n{page}\n```')
-
-		if out:
-			await ctx.message.add_reaction('✅')  # tick
-		elif err:
-			await ctx.message.add_reaction('❌')  # x
-		else:
-			await ctx.message.add_reaction('✅')
-
 	@commands.command(name='reload')
 	async def reload_module(self, ctx, arg=None):
 		"""Reload module"""
@@ -176,6 +87,128 @@ class Debug(commands.Cog):
 			self.bot.unload_extension('cogs.' + arg.lower())
 			self.bot.load_extension('cogs.' + arg.lower())
 			await msg.edit(content=f":white_check_mark: Chargé `{arg.lower()}`")
+
+	@commands.command()
+	@commands.guild_only()
+	async def avatar(self, ctx, *, user: discord.Member = None):
+		""" Get the avatar of you or someone else """
+		user = user or ctx.author
+		await ctx.send(f"Avatar to **{user.name}**\n{user.avatar.with_size(1024)}")
+
+	@commands.command()
+	@commands.guild_only()
+	async def roles(self, ctx):
+		""" Get all roles in current server """
+		allroles = ""
+
+		for num, role in enumerate(sorted(ctx.guild.roles, reverse=True), start=1):
+			allroles += f"[{str(num).zfill(2)}] {role.id}\t{role.name}\t[ Users: {len(role.members)} ]\r\n"
+
+		data = BytesIO(allroles.encode("utf-8"))
+		await ctx.send(content=f"Roles in **{ctx.guild.name}**", file=discord.File(data, filename=f"{default.timetext('Roles')}"))
+
+	@commands.command()
+	@commands.guild_only()
+	async def joinedat(self, ctx, *, user: discord.Member = None):
+		""" Check when a user joined the current server """
+		user = user or ctx.author
+
+		embed = discord.Embed(colour=user.top_role.colour.value)
+		embed.set_thumbnail(url=user.avatar)
+		embed.description = f"**{user}** joined **{ctx.guild.name}**\n{default.date(user.joined_at, ago=True)}"
+		await ctx.send(embed=embed)
+
+	@commands.command()
+	@commands.guild_only()
+	async def mods(self, ctx):
+		""" Check which mods are online on current guild """
+		message = ""
+		all_status = {
+            "online": {"users": [], "emoji": "🟢"},
+            "idle": {"users": [], "emoji": "🟡"},
+            "dnd": {"users": [], "emoji": "🔴"},
+            "offline": {"users": [], "emoji": "⚫"}
+        }
+
+		for user in ctx.guild.members:
+			user_perm = ctx.channel.permissions_for(user)
+			if user_perm.kick_members or user_perm.ban_members:
+				if not user.bot:
+					all_status[str(user.status)]["users"].append(f"**{user}**")
+
+		for g in all_status:
+			if all_status[g]["users"]:
+				message += f"{all_status[g]['emoji']} {', '.join(all_status[g]['users'])}\n"
+
+		await ctx.send(f"Mods in **{ctx.guild.name}**\n{message}")
+
+	@server.command(name="avatar", aliases=["icon"])
+	async def server_avatar(self, ctx):
+		""" Get the current server icon """
+		if not ctx.guild.icon:
+			return await ctx.send("This server does not have a avatar...")
+		await ctx.send(f"Avatar of **{ctx.guild.name}**\n{ctx.guild.icon}")
+
+	@server.command(name="banner")
+	async def server_banner(self, ctx):
+		""" Get the current banner image """
+		if not ctx.guild.banner:
+			return await ctx.send("This server does not have a banner...")
+		await ctx.send(f"Banner of **{ctx.guild.name}**\n{ctx.guild.banner.with_format('png')}")
+
+	@commands.command()
+	async def amiadmin(self, ctx):
+		""" Are you an admin? """
+		if ctx.author.id in self.config["owners"]:
+			return await ctx.send(f"Yes **{ctx.author.name}** you are an admin! ✅")
+
+        # Please do not remove this part.
+        # I would love to be credited as the original creator of the source code.
+        #   -- AlexFlipnote
+		if ctx.author.id == 86477779717066752:
+			return await ctx.send(f"Well kinda **{ctx.author.name}**.. you still own the source code")
+
+		await ctx.send(f"no, heck off {ctx.author.name}")
+
+	@commands.command()
+	@commands.check(permissions.is_owner)
+	async def dm(self, ctx, user: discord.User, *, message: str):
+		""" DM the user of your choice """
+		try:
+			await user.send(message)
+			await ctx.send(f"✉️ Sent a DM to **{user}**")
+		except discord.Forbidden:
+			await ctx.send("This user might be having DMs blocked or it's a bot account...")
+
+	@commands.group()
+	@commands.check(permissions.is_owner)
+	async def change(self, ctx):
+		if ctx.invoked_subcommand is None:
+			await ctx.send_help(str(ctx.command))
+
+	@change.command(name="playing")
+	@commands.check(permissions.is_owner)
+	async def change_playing(self, ctx, *, playing: str):
+		""" Change playing status. """
+		status = self.config["status_type"].lower()
+		status_type = {"idle": discord.Status.idle, "dnd": discord.Status.dnd}
+
+		activity = self.config["activity_type"].lower()
+		activity_type = {"listening": 2, "watching": 3, "competing": 5}
+
+		try:
+			await self.bot.change_presence(
+                activity=discord.Game(
+                    type=activity_type.get(activity, 0), name=playing
+                ),
+                status=status_type.get(status, discord.Status.online)
+            )
+			self.change_config_value("playing", playing)
+			await ctx.send(f"Successfully changed playing status to **{playing}**")
+		except discord.InvalidArgument as err:
+			await ctx.send(err)
+		except Exception as e:
+			await ctx.send(e)
 	
 	@commands.command(name='serversin')
 	async def servers(self, ctx):

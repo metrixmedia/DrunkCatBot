@@ -283,33 +283,6 @@ class Media(commands.Cog):
 			em.set_image(url=data['image_gradient'])
 		await ctx.send(embed=em)
 
-	@commands.command(name='filter', aliases=['blur', 'invert', 'b&w', 'deepfry', 'sepia', 'pixelate', 'magik', 'jpegify', 'wide', 'snow', 'gay', 'communist'])
-	async def filter(self, ctx, arg='', image_link=''):
-		"""Deepfry avatar"""
-		filters = ['blur', 'invert', 'b&w', 'deepfry', 'sepia', 'pixelate', 'magik', 'jpegify', 'wide', 'snow', 'gay', 'communist']
-		if arg == '--list':
-			return await ctx.send(embed=discord.Embed(title='Filters', description='\n'.join(filters)))
-		if arg not in filters:
-			return await ctx.send("Invalid filter name\nUse --list for all options")
-		
-		if not image_link:
-			user = ctx.message.author
-			image_link = user.avatar_url_as(format='png', size=1024)
-		try:
-			user = ctx.message.mentions[0]
-			image_link = user.avatar_url_as(format='png', size=1024)
-		except IndexError:
-			pass
-
-		url = f'https://api.alexflipnote.dev/filter/{arg}'
-		headers = {'Authorization': os.environ['AlexFlipnoteAPI']}
-		async with self.client.get(url, params={'image': str(image_link)}) as r:
-			if r.status != 200:
-				return await ctx.send("Failed :x:\nMaybe url is wrong :link:")
-			data = io.BytesIO(await r.read())
-
-		await ctx.send(file=discord.File(data, 'filter.png'))
-
 	@commands.command(name='fml')
 	async def fml(self, ctx):
 		"""FML generators"""
