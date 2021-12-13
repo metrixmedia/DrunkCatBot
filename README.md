@@ -42,3 +42,5 @@ Poetry Package and Dependency Manager : (https://python-poetry.org/)
 ### Update v17.11.2021 : Music cog is not broken anymore, Lyrics in alpha.
 
 ### Update v22.11.2021 : Added Stop Cog to the Music category (stops the music and disconnects the bot), optimisation of the code
+
+### Update v12.12.2021 : LARGE UPDATE !!! NEW COGS !!! Admin, moderator and fun functions addded !!! Some bugs fixed too !!!
