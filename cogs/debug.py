@@ -6,18 +6,28 @@ from contextlib import redirect_stdout
 import datetime
 from speedtest import Speedtest
 from psutil import virtual_memory, cpu_percent, cpu_freq
-
+import json
 import aiohttp
 import discord
 from discord.ext import commands
 from io import BytesIO
-from utils import default, permissions
+from utils import default, permissions, http
 client = discord.Client
 
 class Debug(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 		self.config = default.config()
+
+	def change_config_value(self, value: str, changeto: str):
+		""" Change a value from the configs """
+		config_name = "config.json"
+		with open(config_name, "r") as jsonFile:
+			data = json.load(jsonFile)
+
+		data[value] = changeto
+		with open(config_name, "w") as jsonFile:
+			json.dump(data, jsonFile, indent=2)
 
 	@commands.command(name='speedtest')
 	async def speed_test(self, ctx):		
@@ -73,7 +83,7 @@ class Debug(commands.Cog):
 		if not await self.bot.is_owner(ctx.author):
 			return await ctx.send("Only bot admin can use those debug functions :man_technologist_tone1:")
 		
-		modules = ['misc', 'games', 'debug', 'media', 'music']
+		modules = ['misc', 'games', 'debug', 'media', 'music', 'alexfun', 'moderator']
 		if not arg:
 			return await ctx.send(embed=discord.Embed(title='Vous devez préciser les modules :', description='\n'.join(modules)))
 		if arg.lower() == 'all':
