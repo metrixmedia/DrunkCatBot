@@ -197,7 +197,7 @@ class Debug(commands.Cog):
                 activity=discord.Game(
                     type=activity_type.get(activity, 0), name=playing
                 ),
-                status=status_type.get(status, discord.Status.online)
+                status=status_type.get(status, discord.Status.dnd)
             )
 			self.change_config_value("playing", playing)
 			await ctx.send(f"Successfully changed playing status to **{playing}**")

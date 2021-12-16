@@ -27,6 +27,7 @@ replit = "^2.0.0"
 chatterbot-voice = "^0.1.5"
 aiopentdb = {git = "https://github.com/1Prototype1/aiopentdb.git"}
 timeago = "1.0.13"
+asyncio = "^3.4.3"
 
 [tool.poetry.dev-dependencies]
 
