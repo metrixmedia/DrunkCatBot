@@ -450,7 +450,7 @@ python-versions = ">=3.6"
 
 [[package]]
 name = "nltk"
-version = "3.6.4"
+version = "3.6.6"
 description = "Natural Language Toolkit"
 category = "main"
 optional = false
@@ -459,13 +459,13 @@ python-versions = ">=3.6"
 [package.dependencies]
 click = "*"
 joblib = "*"
-regex = "*"
+regex = ">=2021.8.3"
 tqdm = "*"
 
 [package.extras]
-all = ["scipy", "gensim (<4.0.0)", "pyparsing", "python-crfsuite", "matplotlib", "requests", "numpy", "twython", "scikit-learn"]
+all = ["scikit-learn", "twython", "python-crfsuite", "numpy", "requests", "scipy", "matplotlib", "pyparsing"]
 corenlp = ["requests"]
-machine_learning = ["gensim (<4.0.0)", "numpy", "python-crfsuite", "scikit-learn", "scipy"]
+machine_learning = ["numpy", "python-crfsuite", "scikit-learn", "scipy"]
 plot = ["matplotlib"]
 tgrep = ["pyparsing"]
 twitter = ["twython"]
@@ -1359,8 +1359,8 @@ multidict = [
     {file = "multidict-5.2.0.tar.gz", hash = "sha256:0dd1c93edb444b33ba2274b66f63def8a327d607c6c790772f448a53b6ea59ce"},
 ]
 nltk = [
-    {file = "nltk-3.6.4-py3-none-any.whl", hash = "sha256:2b9a54bbd2142282cb41aa4b25b8a356bb96f032f509302b4cca9992eda6e793"},
-    {file = "nltk-3.6.4.zip", hash = "sha256:dd7e8012af25737e6aa7bc26568a319508dca789f13e62afa09798dccc7798b5"},
+    {file = "nltk-3.6.6-py3-none-any.whl", hash = "sha256:69470ba480ff4408e8ea82c530c8dc9571bab899f49d4571e8c8833e0916abd0"},
+    {file = "nltk-3.6.6.zip", hash = "sha256:0f8ff4e261c78605bca284e8d2025e562304766156af32a1731f56b396ee364b"},
 ]
 oauthlib = [
     {file = "oauthlib-3.1.1-py2.py3-none-any.whl", hash = "sha256:42bf6354c2ed8c6acb54d971fce6f88193d97297e18602a3a886603f9d7730cc"},
