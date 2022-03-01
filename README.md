@@ -10,13 +10,13 @@ Website :
 https://drunkcat.hugofnm.fr
 
 Invite Link :
-https://discord.com/oauth2/authorize?client_id=735564887056580640&scope=bot&permissions=8
+https://discord.com/oauth2/authorize?client_id=948326406369210368&scope=bot&permissions=8
 
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: GPL v3](https://img.shields.io/badge/License-MIT-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![UP Time](https://img.shields.io/uptimerobot/ratio/m786123386-a1fd3c29dc032e468f6d4022)](https://status.hugofnm.fr)
 [![Status](https://img.shields.io/uptimerobot/status/m786123386-a1fd3c29dc032e468f6d4022)](https://status.hugofnm.fr)
-[![Discord](https://img.shields.io/badge/Add%20to%20Discord%20Server-Log%20In-yellow)](https://discord.com/oauth2/authorize?client_id=735564887056580640&scope=bot&permissions=8)
-[![Deploy to Repl.it](https://img.shields.io/badge/Deploy%20to%20Repl.it-Deploy%20(no%20bug%20support)-blueviolet)](https://repl.it/@hugofnm/DrunkCat)
+[![Discord](https://img.shields.io/badge/Add%20to%20Discord%20Server-Log%20In-yellow)](https://discord.com/oauth2/authorize?client_id=948326406369210368&scope=bot&permissions=8)
+[![Deploy to Repl.it](https://img.shields.io/badge/Deploy%20to%20Repl.it-Deploy-blueviolet)](https://repl.it/@hugofnm/DrunkCat)
 
 ## FAQ / QA :
 
@@ -36,13 +36,3 @@ https://discord.com/oauth2/authorize?client_id=735564887056580640&scope=bot&perm
 Poetry Package and Dependency Manager : (https://python-poetry.org/)
 
 ### Invite link for DrunkCat Preview (instable beta, commands with § prefix) : https://discord.com/oauth2/authorize?client_id=907021421845315614&scope=bot&permissions=8
-
-### Update v11.2021 : We no longer maintain Repl.it version (not very powerful to the bot needs), but it still can be compatible with few adjustments.
-
-### Update v17.11.2021 : Music cog is not broken anymore, Lyrics in alpha.
-
-### Update v22.11.2021 : Added Stop Cog to the Music category (stops the music and disconnects the bot), optimisation of the code
-
-### Update v12.12.2021 : LARGE UPDATE !!! NEW COGS !!! Admin, moderator and fun functions addded !!! Some bugs fixed too !!!
-
-### Update v28.02.2022 : Music cog fixed ! Enjoy your music with DrunkCat Bot :)

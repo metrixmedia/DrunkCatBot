@@ -206,13 +206,5 @@ class Debug(commands.Cog):
 		except Exception as e:
 			await ctx.send(e)
 	
-	@commands.command(name='serversin')
-	async def servers(self, ctx):
-		activeservers = client.guilds
-		for guild in activeservers:
-			await ctx.send(guild.name)
-			print(guild.name)
-
-
 def setup(bot):
 	bot.add_cog(Debug(bot))

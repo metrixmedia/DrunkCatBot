@@ -68,7 +68,7 @@ async def help(ctx, arg: str=''):
 
 	avatar_url = str(bot.user.avatar_url)
 	embed.set_thumbnail(url=avatar_url)
-	embed.set_author(name="DrunkCat Bot Help", url="https://discord.com/oauth2/authorize?client_id=735564887056580640&scope=bot&permissions=8", icon_url=avatar_url)
+	embed.set_author(name="DrunkCat Bot Help", url="https://discord.com/oauth2/authorize?client_id=948326406369210368&scope=bot&permissions=8", icon_url=avatar_url)
 	embed.set_footer(text="Drunk Bot by @hugofnm#8066")
 
 	if arg.strip().lower() == '-a':

@@ -7,7 +7,7 @@ app = Flask('')
 
 @app.route('/')
 def main():
-    return "Le bot est disponible pour l'instant ! Le serveur WebSocket est à présent disponible. CODE HTTP : 200 - OK - UP"
+    return "Bot is ONLINE - HTTP/1.1 200 OK"
 
 def run():
     app.run(host="0.0.0.0", port=8080)

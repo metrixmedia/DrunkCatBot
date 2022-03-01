@@ -103,28 +103,6 @@ class Misc(commands.Cog):
 			await ctx.send('Conversion Failed :x:')
 		else:
 			await ctx.send(f":currency_exchange: Conversion:\n`{value} {_from.upper()}` = `{c.pretty}`")
-
-	@commands.command(name='trace', aliases=['ip'])
-	async def trace(self, ctx, ip: str=""):
-		"""Trace ip"""
-		if ip=="":
-			return await ctx.send("Please enter an `IP` address :satellite:")
-
-		try:
-			async with ctx.typing():
-				info = await self.kclient.kumo.trace_ip(ip)
-		except (ksoftapi.NoResults, ksoftapi.errors.APIError):
-			await ctx.send('Unable to locate :x:\nEnter valid IP')
-		else:
-			details = [['City', 'city'], ['Continent code', 'continent_code'], ['Continent name', 'continent_name'], ['Country code', 'country_code'], ['Country_name', 'country_name'], ['DMA code', 'dma_code'], ['Latitude', 'latitude'], ['Longitude', 'longitude'], ['Postal code', 'postal_code'], ['Region', 'region'], ['Timezone', 'time_zone']]
-			description = []
-			for i in details:
-				description.append(f'{i[0]}: `{getattr(info, i[1])}`')
-			description.append(f':map:Map: [GoogleMaps]({info.gmap})')
-
-			embed = discord.Embed(title=":satellite_orbital: IP information:", colour=discord.Colour(0xff00cc), description="\n".join(description))
-			embed.set_footer(text=ip, icon_url=ctx.author.avatar_url)
-			await ctx.send(embed=embed)
 	
 	@commands.command(name='owner', aliases=['support', 'contact'])
 	async def support(self, ctx, *, msg: str = ""):
