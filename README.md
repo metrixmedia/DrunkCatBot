@@ -10,12 +10,12 @@ Website :
 https://drunkcat.hugofnm.fr
 
 Invite Link :
-https://discord.com/oauth2/authorize?client_id=948326406369210368&scope=bot&permissions=8
+https://discord.com/oauth2/authorize?client_id=733981723498643498&scope=bot&permissions=8
 
 [![License: GPL v3](https://img.shields.io/badge/License-MIT-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![UP Time](https://img.shields.io/uptimerobot/ratio/m786123386-a1fd3c29dc032e468f6d4022)](https://status.hugofnm.fr)
 [![Status](https://img.shields.io/uptimerobot/status/m786123386-a1fd3c29dc032e468f6d4022)](https://status.hugofnm.fr)
-[![Discord](https://img.shields.io/badge/Add%20to%20Discord%20Server-Log%20In-yellow)](https://discord.com/oauth2/authorize?client_id=948326406369210368&scope=bot&permissions=8)
+[![Discord](https://img.shields.io/badge/Add%20to%20Discord%20Server-Log%20In-yellow)](https://discord.com/oauth2/authorize?client_id=733981723498643498&scope=bot&permissions=8)
 [![Deploy to Repl.it](https://img.shields.io/badge/Deploy%20to%20Repl.it-Deploy-blueviolet)](https://repl.it/@hugofnm/DrunkCat)
 
 ## FAQ / QA :

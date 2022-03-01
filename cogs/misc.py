@@ -214,7 +214,6 @@ class Misc(commands.Cog):
 		em.add_field(name='Owner', value=f'`{server.owner}`', inline=False)
 		em.add_field(name='Members', value=f'`{server.member_count}`')
 		em.add_field(name='Online', value=f'`{online}`')
-		em.add_field(name='Region', value=f'`{str(server.region).title()}`')
 		em.add_field(name='Text Channels', value=f'`{tchannel_count}`')
 		em.add_field(name='Voice Channels', value=f'`{vchannel_count}`')
 		em.add_field(name='Verification Level', value=f'`{str(server.verification_level).title()}`')
