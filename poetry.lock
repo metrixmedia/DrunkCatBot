@@ -367,11 +367,11 @@ i18n = ["Babel (>=0.8)"]
 
 [[package]]
 name = "joblib"
-version = "1.1.0"
+version = "1.2.0"
 description = "Lightweight pipelining with Python functions"
 category = "main"
 optional = false
-python-versions = ">=3.6"
+python-versions = ">=3.7"
 
 [[package]]
 name = "jokeapi"
@@ -1142,8 +1142,8 @@ jinja2 = [
     {file = "Jinja2-2.11.3.tar.gz", hash = "sha256:a6d58433de0ae800347cab1fa3043cebbabe8baa9d29e668f1c768cb87a333c6"},
 ]
 joblib = [
-    {file = "joblib-1.1.0-py2.py3-none-any.whl", hash = "sha256:f21f109b3c7ff9d95f8387f752d0d9c34a02aa2f7060c2135f465da0e5160ff6"},
-    {file = "joblib-1.1.0.tar.gz", hash = "sha256:4158fcecd13733f8be669be0683b96ebdbbd38d23559f54dca7205aea1bf1e35"},
+    {file = "joblib-1.2.0-py3-none-any.whl", hash = "sha256:091138ed78f800342968c523bdde947e7a305b8594b910a0fea2ab83c3c6d385"},
+    {file = "joblib-1.2.0.tar.gz", hash = "sha256:e1cee4a79e4af22881164f218d4311f60074197fb707e082e803b61f6d137018"},
 ]
 jokeapi = [
     {file = "jokeapi-0.2.11-py3-none-any.whl", hash = "sha256:d966fdbd06140f89d76d02ca3204205c16da212c9c2b8244c43eaf99ca199e28"},
@@ -1155,7 +1155,6 @@ jsondatabase = [
 ]
 ksoftapi = [
     {file = "ksoftapi-0.2.5a0-py3-none-any.whl", hash = "sha256:317b67aa30045dede114d51d0efc2b1ea728fb9fad1600517fb6674106a0b8ab"},
-    {file = "ksoftapi-0.2.5a0-py3.8.egg", hash = "sha256:4335f43603149d9377bd4b1faf44eec618a0a671684bd380607e22411a5ccaeb"},
     {file = "ksoftapi-0.2.5a0.tar.gz", hash = "sha256:7994b925565951438ef94aca83ad013c2e8f60ed9d87e66791b1d40d275a1691"},
 ]
 lxml = [
@@ -1587,7 +1586,6 @@ pymongo = [
     {file = "pymongo-3.12.0-cp39-cp39-manylinux_2_5_x86_64.manylinux1_x86_64.whl", hash = "sha256:6261bee7c5abadeac7497f8f1c43e521da78dd13b0a2439f526a7b0fc3788824"},
     {file = "pymongo-3.12.0-cp39-cp39-win32.whl", hash = "sha256:2e92aa32300a0b5e4175caec7769f482b292769807024a86d674b3f19b8e3755"},
     {file = "pymongo-3.12.0-cp39-cp39-win_amd64.whl", hash = "sha256:3ce83f17f641a62a4dfb0ba1b8a3c1ced7c842f511b5450d90c030c7828e3693"},
-    {file = "pymongo-3.12.0-py2.7-macosx-10.14-intel.egg", hash = "sha256:d1740776b70367277323fafb76bcf09753a5cc9824f5d705bac22a34ff3668ea"},
     {file = "pymongo-3.12.0.tar.gz", hash = "sha256:b88d1742159bc93a078733f9789f563cef26f5e370eba810476a71aa98e5fbc2"},
 ]
 pynacl = [
@@ -1689,7 +1687,6 @@ requests = [
 requests-oauthlib = [
     {file = "requests-oauthlib-1.3.0.tar.gz", hash = "sha256:b4261601a71fd721a8bd6d7aa1cc1d6a8a93b4a9f5e96626f8e4d91e8beeaa6a"},
     {file = "requests_oauthlib-1.3.0-py2.py3-none-any.whl", hash = "sha256:7f71572defaecd16372f9006f33c2ec8c077c3cfa6f5911a9a90202beb513f3d"},
-    {file = "requests_oauthlib-1.3.0-py3.7.egg", hash = "sha256:fa6c47b933f01060936d87ae9327fead68768b69c6c9ea2109c48be30f2d4dbc"},
 ]
 rfc3986 = [
     {file = "rfc3986-1.5.0-py2.py3-none-any.whl", hash = "sha256:a86d6e1f5b1dc238b218b012df0aa79409667bb209e58da56d0b94704e712a97"},
